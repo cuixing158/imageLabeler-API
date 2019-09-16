@@ -1,0 +1,26 @@
+<annotation>
+   <folder>stopSignImages</folder>
+   <filename>image034.jpg</filename>
+   <path>F:\video\stopSignImages\image034.jpg</path>
+   <source>
+      <database>Unknow</database>
+   </source>
+   <size>
+      <width>1632</width>
+      <height>1224</height>
+      <depth>3</depth>
+   </size>
+   <segmented>0</segmented>
+   <object>
+      <name>stop</name>
+      <pose>Unspecified</pose>
+      <truncated>0</truncated>
+      <difficult>0</difficult>
+      <bndbox>
+         <xmin>755</xmin>
+         <ymin>432</ymin>
+         <xmax>905</xmax>
+         <ymax>710</ymax>
+      </bndbox>
+   </object>
+</annotation>

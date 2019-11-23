@@ -36,19 +36,22 @@ for i = 1:numImages
         end
         variableNames = unique(variableNames);
         
-        A = textscan(tline,'%s%f%f%f%f %f%f%f%f');
-        tag = A{1}; % cell
-        currentRect = [A{2},A{3},A{4},A{5}];
+        A = strip(split(tline,' '));
+        emptyCells = cellfun('isempty', A);
+        A(emptyCells) = [];
+        tag = A(1); % cell
+        numerical = str2double(A(2:end));
+        currentRect = [numerical(1)+1,numerical(2)+1,numerical(3),numerical(4)];
         index = ismember(tag,variableNames);
         if index
-            s(i).(char(A{1})) = [s(i).(char(A{1}));currentRect];
+            s(i).(char(A(1))) = [s(i).(char(A(1)));currentRect];
         else
-            s(i).(char(A{1})) = currentRect;
+            s(i).(char(A(1))) = currentRect;
         end
         variableNames = [variableNames,tag];
     end
     fclose(fid);
-    waitbar(i / steps);
+    waitbar(i / steps,h);
 end
 if length(s) == 1
     fields = fieldnames(s);
@@ -59,5 +62,6 @@ if length(s) == 1
 else
     outputTable = struct2table(s);
 end
+close(h)
 
 

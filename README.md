@@ -23,6 +23,6 @@ car     149 377 234 143    0   0   0   0<br>
 stop     858 318  39  43    0   0   0   0<br>
 
 ## Tips
-MATLAB table格式文件由trainingImageLabeler/imageLabeler  APP导出/制作查看的格式,适合2017a及以后版本。
+MATLAB table格式文件由trainingImageLabeler/imageLabeler  APP导出/制作查看的格式,适合2017b及以后版本。
 最好把一个图像的3个标注文件在同一路径下表示出来，分别为原图像，txt，xml；其中原图像和txt必须在同一路径下
 

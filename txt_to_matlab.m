@@ -1,12 +1,14 @@
-function outputTable = txt_to_matlab()
+function gTruth = txt_to_matlab()
 % 功能：把txt标注信息转换为matlab table标注格式,用于二次查看/编辑等操作，一个txt对应一个同名的图片名。
-%      注意，txt和同名的图像文件必须在同一路径位置。
-% 输入： 无，交互式选择，选择包含txt标记文本的文件夹即可。该文件夹下一张图片对应一个txt，文本名字为图像名字。
+%      注意，txt和同名的图像文件必须在同一路径位置。MATLAB2017b以上版本适用！
+% 输入： 
+%       无，交互式选择，选择包含txt标记文本的文件夹即可。该文件夹下一张图片对应一个txt，文本名字为图像名字。
 %       文本里面格式要求见截图图片。
-% 输出：outputTable，table类型标注信息文件，可直接导入到trainingImageLabel APP中查看
+% 输出：
+%      gTruth: groundTruth类型标注信息文件，可直接导入到matlab imageLabeler APP中查看
 %
 % Example:
-%        outputTable = txt_to_matlab()
+%        gTruth = txt_to_matlab()
 %
 %
 folder_name = uigetdir('','请选择导入的txt/图像标记文件路径(文件夹)！');
@@ -62,5 +64,7 @@ if length(s) == 1
 else
     outputTable = struct2table(s);
 end
+gTruth = table_to_gTruth(outputTable);
 close(h)
+imageLabeler % 自动打开app，导入gTruth即可
 

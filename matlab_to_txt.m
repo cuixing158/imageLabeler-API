@@ -20,7 +20,6 @@ else
     mylabel = groundTruthData;
 end
 
-warndlg('已覆盖到原有标注txt文件');
 folder_name = fileparts( mylabel.imgageFilename{1});
 imds = imageDatastore(folder_name,'FileExtensions',{'.jpg','.png'});
 imageNums = length(imds.Files);
@@ -73,3 +72,4 @@ for i =1:numSamples
     waitbar(i / steps);
 end
 close(h)
+warndlg('已覆盖到原有标注txt文件');

@@ -57,8 +57,8 @@ for i = 1:numSamples
             annotation.object(objectnum).pose = 'Unspecified';
             annotation.object(objectnum).truncated = 0;
             annotation.object(objectnum).difficult= 0;
-            annotation.object(objectnum).bndbox.xmin = ROI_matrix(ii,1);
-            annotation.object(objectnum).bndbox.ymin = ROI_matrix(ii,2);
+            annotation.object(objectnum).bndbox.xmin = ROI_matrix(ii,1)-1;
+            annotation.object(objectnum).bndbox.ymin = ROI_matrix(ii,2)-1;
             annotation.object(objectnum).bndbox.xmax = ROI_matrix(ii,1)+ROI_matrix(ii,3);
             annotation.object(objectnum).bndbox.ymax = ROI_matrix(ii,2)+ROI_matrix(ii,4);
         end

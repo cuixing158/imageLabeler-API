@@ -38,7 +38,7 @@ for i = 1:numImages
         
         A = textscan(tline,'%s%f%f%f%f %f%f%f%f');
         tag = A{1}; % cell
-        currentRect = [A{2},A{3},A{4},A{5}];
+        currentRect = [A{2}+1,A{3}+1,A{4},A{5}];
         index = ismember(tag,variableNames);
         if index
             s(i).(char(A{1})) = [s(i).(char(A{1}));currentRect];

@@ -57,7 +57,8 @@ for i =1:numSamples
         end
         for k = 1:size(rects,1)
             numROIs = numROIs+1;
-            fprintf(fid,'%s %d %d %d %d  %d %d %d %d\r\n',variableNames{j},round(rects(k,:)),zeros(1,4));
+            fprintf(fid,'%s %d %d %d %d  %d %d %d %d\r\n',variableNames{j},...
+            round(rects(k,1:2)-1),round(rects(k,3:4)),zeros(1,4));
         end
     end
     fseek(fid, 0, 'bof');

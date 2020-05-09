@@ -16,7 +16,7 @@ table_to_gTruth.m为table格式转换groundTruth格式；<br>
 matlab_to_txt.m为MATLAB table转txt文本格式。<br>
 
 ## txt文本标记格式
-比如文本内容打开如下，分别表示类别,x,y,width,height,四个缺省值：<br>
+比如文本内容打开如下，分别表示类别,x,y,width,height,四个缺省值0,txt和xml中像素是以0开始的索引：<br>
 3 <br>
 car     401 381 305 201    0   0   0   0<br>
 car     149 377 234 143    0   0   0   0<br>

@@ -12,12 +12,6 @@ function matlab_to_txt(groundTruthData)
 if  ~istable(groundTruthData)&&~strcmpi(class(groundTruthData),'groundTruth')
     error('请在matlab imageLabeler APP中导出标注变量数据！');
 end
-
-folder_name = uigetdir('','请选择导出txt的文件夹(包含原同名图像jpg)！');
-if ~folder_name
-   warndlg('当前并没选择任何文件！','警告')
-   return;
-end
 if strcmpi(class(groundTruthData),'groundTruth')
     imgageFilename = groundTruthData.DataSource.Source;
     classTable = groundTruthData.LabelData;
@@ -26,6 +20,8 @@ else
     mylabel = groundTruthData;
 end
 
+warndlg('已覆盖到原有标注txt文件');
+folder_name = fileparts( mylabel.imgageFilename{1});
 imds = imageDatastore(folder_name,'FileExtensions',{'.jpg','.png'});
 imageNums = length(imds.Files);
 

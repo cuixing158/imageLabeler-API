@@ -66,4 +66,4 @@ for i =1:numSamples
     fclose(fid);
     waitbar(i / steps);
 end
-close(h);
+close(h)

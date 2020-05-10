@@ -20,7 +20,7 @@ else
     mylabel = groundTruthData;
 end
 
-folder_name = fileparts( mylabel.imgageFilename{1});
+folder_name = fileparts( mylabel.imageFilename{1});
 imds = imageDatastore(folder_name,'FileExtensions',{'.jpg','.png'});
 imageNums = length(imds.Files);
 

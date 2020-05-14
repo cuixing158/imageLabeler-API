@@ -13,9 +13,9 @@ if  ~istable(groundTruthData)&&~strcmpi(class(groundTruthData),'groundTruth')
     error('请在matlab imageLabeler APP中导出标注变量数据！');
 end
 if strcmpi(class(groundTruthData),'groundTruth')
-    imgageFilename = groundTruthData.DataSource.Source;
+    imageFilename = groundTruthData.DataSource.Source;
     classTable = groundTruthData.LabelData;
-    mylabel = [cell2table(imgageFilename),classTable];
+    mylabel = [cell2table(imageFilename),classTable];
 else
     mylabel = groundTruthData;
 end

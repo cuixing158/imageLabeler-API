@@ -12,7 +12,7 @@ function gTruth = pixel_to_matlab(pixelLabelDir,labelnames)
 % Example:
 %        gTruth = pixel_to_matlab()
 %
-arguments
+arguments % arguments, Introduced in R2019b
     pixelLabelDir (1,:) char = ''
     labelnames (1,:) string = "undefined"
 end
@@ -27,14 +27,12 @@ end
 
 imagesDir = pixelLabelDir;
 imagesLDir = pixelLabelDir;
-
 imds = imageDatastore(imagesDir,'FileExtensions','.jpg');
 dataSource = groundTruthDataSource(imds);
-
 lbds = imageDatastore(imagesLDir,'FileExtensions','.png');
 labelData = table(lbds.Files,'VariableNames',{'PixelLabelData'});
 
-if labelnames=="undefined"
+if labelnames=="undefined" % 如果知道labelnames，直接输入参数省略下面判断，速度更快
     transformedObj = transform(lbds,@(x) unique(x));% transform, Introduced in R2019a
     labelVectors = [];
     while transformedObj.hasdata()
@@ -48,11 +46,13 @@ if labelnames=="undefined"
     end
 end
 
-assert(~isempty(imds.Files),'origin images must not empty!');
-assert(length(imds.Files)==length(lbds.Files),'origin images must equal to label images!');
+assert(~isempty(imds.Files),'origin images(.jpg) must not empty!');
+assert(length(imds.Files)==length(lbds.Files),'origin images(.jpg) must equal to label images(.png)!');
 a1 = extractBefore(string(imds.Files),'.');
 a2 = extractBefore(string(lbds.Files),'.');
-assert(all(a1==a2),'origin images and label images must be the same name!');
+assert(all(a1==a2),'origin images(.jpg) and label images(.png) must be the same name!');
+isUint8 = all(cellfun(@(x)validImage(x),lbds.Files));
+assert(isUint8,'label images(.png) must one channel,uint8 type!');
 
 ldc = labelDefinitionCreator;
 for i = 1:length(labelnames)
@@ -63,3 +63,10 @@ labelDefs = create(ldc);
 gTruth = groundTruth(dataSource,labelDefs,labelData);
 imageLabeler % 自动打开app，Import Labels from workspace,手动导入gTruth即可
 
+function isvalid = validImage(filename)
+%功能：验证filename为uint8 单通道图像
+ info = imfinfo(filename);
+isvalid = info.BitDepth==8;
+isvalid = isvalid & strcmp(info.ColorType,'grayscale');
+end
+end

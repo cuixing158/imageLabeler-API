@@ -1,6 +1,6 @@
 function gTruth = pixel_to_matlab(pixelLabelDir,labelnames)
 % 功能：多类别像素级语义分割标记导入,根据原图（jpg格式）和标记图（同名同大小的png格式，
-% uint8类型,从1开始的类别标记矩阵），生成groundTruth类型对象，最后可导入到imageLabeler APP中,
+% uint8类型,从1开始的类别标记矩阵,0为背景类），生成groundTruth类型对象，最后可导入到imageLabeler APP中,
 % 原图和标记图要位于同一目录下
 %
 % 输入：
@@ -34,6 +34,20 @@ dataSource = groundTruthDataSource(imds);
 lbds = imageDatastore(imagesLDir,'FileExtensions','.png');
 labelData = table(lbds.Files,'VariableNames',{'PixelLabelData'});
 
+if labelnames=="undefined"
+    transformedObj = transform(lbds,@(x) unique(x));% transform, Introduced in R2019a
+    labelVectors = [];
+    while transformedObj.hasdata()
+        labelVector = transformedObj.read();
+        newIdx =  ~ismember(labelVector,labelVectors);
+        labelVectors = [labelVectors;labelVector(newIdx)];
+    end
+    labelnames = strings(length(labelVectors)-1,1);% 去除背景类别
+    for i = 1:length(labelnames)
+        labelnames(i) = "undefined_"+string(i);
+    end
+end
+
 assert(~isempty(imds.Files),'origin images must not empty!');
 assert(length(imds.Files)==length(lbds.Files),'origin images must equal to label images!');
 a1 = extractBefore(string(imds.Files),'.');
@@ -47,5 +61,5 @@ end
 labelDefs = create(ldc);
 
 gTruth = groundTruth(dataSource,labelDefs,labelData);
-imageLabeler % 自动打开app，导入gTruth即可
+imageLabeler % 自动打开app，Import Labels from workspace,手动导入gTruth即可
 

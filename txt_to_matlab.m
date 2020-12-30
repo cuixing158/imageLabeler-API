@@ -17,7 +17,8 @@ if ~ischar(folder_name)
     return;
 end
 
-imds = imageDatastore(folder_name,'IncludeSubFolders',true);
+imds = imageDatastore(folder_name,'IncludeSubFolders',true,...
+    'FileExtensions',{'.jpg'});
 numImages = length(imds.Files);
 h = waitbar(0,'Please wait...');
 steps = numImages;

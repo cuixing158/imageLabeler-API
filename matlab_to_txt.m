@@ -21,7 +21,7 @@ else
 end
 
 folder_name = fileparts( mylabel.imageFilename{1});
-imds = imageDatastore(folder_name,'FileExtensions',{'.jpg','.png'});
+imds = imageDatastore(folder_name,'FileExtensions',{'.jpg'});
 imageNums = length(imds.Files);
 
 numSamples = size(mylabel,1);

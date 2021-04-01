@@ -28,7 +28,7 @@ end
 imagesDir = pixelLabelDir;
 imagesLDir = pixelLabelDir;
 imds = imageDatastore(imagesDir,'FileExtensions','.jpg');
-dataSource = groundTruthDataSource(imds);
+dataSource = groundTruthDataSource(imds.Files);
 lbds = imageDatastore(imagesLDir,'FileExtensions','.png');
 labelData = table(lbds.Files,'VariableNames',{'PixelLabelData'});
 
